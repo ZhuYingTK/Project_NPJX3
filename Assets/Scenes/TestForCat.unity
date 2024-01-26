@@ -519,6 +519,7 @@ GameObject:
   - component: {fileID: 1775171753}
   - component: {fileID: 1775171752}
   - component: {fileID: 1775171751}
+  - component: {fileID: 1775171755}
   - component: {fileID: 1775171750}
   - component: {fileID: 1775171754}
   m_Layer: 0
@@ -535,7 +536,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775171749}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcce07f3f1b0cf345975fdc7eb1251c3, type: 3}
   m_Name: 
@@ -543,14 +544,9 @@ MonoBehaviour:
   acceleration: 5
   maxSpeed: 5
   deceleration: 5
-  shootingSpeed: 20
-  shootDeceleration: 40
-  shootDistance: 5
-  bounciness: 1
-  rotationSpeed: 90
-  Arrow: {fileID: 365617199}
-  shootPhyMaterial: {fileID: 6200000, guid: 23b5f0eb8bb8e1846ae7900bc33ff13d, type: 2}
-  originPhyMaterial: {fileID: 6200000, guid: b2d07e7feaf367a449cc99b07eefebf6, type: 2}
+  bounceForce: 100
+  teleportPoints: []
+  teleportRadius: 2
 --- !u!50 &1775171751
 Rigidbody2D:
   serializedVersion: 4
@@ -682,6 +678,29 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1775171755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775171749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d2da90ae945f14281c6c8e1286b15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 5
+  maxSpeed: 10
+  deceleration: 5
+  shootingSpeed: 10
+  shootDeceleration: 10
+  shootDistance: 10
+  bounciness: 1
+  rotationSpeed: 90
+  Arrow: {fileID: 365617199}
+  shootPhyMaterial: {fileID: 6200000, guid: 23b5f0eb8bb8e1846ae7900bc33ff13d, type: 2}
+  originPhyMaterial: {fileID: 6200000, guid: b2d07e7feaf367a449cc99b07eefebf6, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
