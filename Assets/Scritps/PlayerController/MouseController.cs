@@ -43,8 +43,8 @@ public class MouseController : MonoBehaviour
         Instance = this;
 
         EventCenter.AddSingleEventListener(EventKey.HoleCreateDown, (List<Transform> holeTrans) => { teleportPoints = holeTrans; });
-        EventCenter.AddSingleEventListener(EventKey.GameStart, () => { moveable = true; });
-        EventCenter.AddSingleEventListener(EventKey.GameEnd, () => { moveable = false; });
+        EventCenter.AddEventListener(EventKey.GameStart, () => { moveable = true; });
+        EventCenter.AddEventListener(EventKey.GameEnd, () => { moveable = false; });
 
         Debug.Log("事件注册");
     }
