@@ -43,7 +43,9 @@ public class CatController : MonoBehaviour
     private bool canShoot;      //可以发射
     private bool gameStart = false;
 
-        private void Start()
+    private Vector2 lastForward;    //此前位置
+
+    private void Start()
     {
         isPreShooting = false;
         rb = GetComponent<Rigidbody2D>();
@@ -61,7 +63,7 @@ public class CatController : MonoBehaviour
 
     private void Update()
     {
-        if(!gameStart) return;
+        //if(!gameStart) return;
         //普通
         if (!isPreShooting && !isShooting)
         {
@@ -133,7 +135,7 @@ public class CatController : MonoBehaviour
     {
         isPreShooting = true;
         Arrow.SetActive(true);
-        shootVector = rb.velocity.normalized==Vector2.zero ? Vector2.right : rb.velocity.normalized;
+        shootVector = rb.velocity.normalized==Vector2.zero ? (lastForward == Vector2.zero ? Vector2.right : lastForward) : rb.velocity.normalized;
     }
 
     //发射！
@@ -187,6 +189,9 @@ public class CatController : MonoBehaviour
                 }
             }
         }
+
+        if (rb.velocity.magnitude > 0)
+            lastForward = rb.velocity;
 
         if (!isShooting)
         {

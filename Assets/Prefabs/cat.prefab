@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8315042154021896547}
   m_Layer: 0
   m_Name: cat
-  m_TagString: Untagged
+  m_TagString: Cat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,6 +139,7 @@ MonoBehaviour:
   Arrow: {fileID: 6186710404147383779}
   shootPhyMaterial: {fileID: 6200000, guid: 23b5f0eb8bb8e1846ae7900bc33ff13d, type: 2}
   originPhyMaterial: {fileID: 6200000, guid: b2d07e7feaf367a449cc99b07eefebf6, type: 2}
+  shootKey: 106
 --- !u!95 &7305191865674264988
 Animator:
   serializedVersion: 5
