@@ -30,7 +30,7 @@ public class EventCenter : Singleton<EventCenter>
         }
     }
 
-    public static void AddEventListener<T>(string eventKey, Action listener)
+    public static void AddEventListener(string eventKey, Action listener)
     {
         if (eventDictionary.TryGetValue(eventKey,out var preciousAction))
         {
