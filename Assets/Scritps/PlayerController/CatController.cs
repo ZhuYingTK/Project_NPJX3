@@ -194,7 +194,7 @@ public class CatController : MonoBehaviour
         }
     }
 
-    private void OnSlip(float slipTime)
+    public void OnSlip(float slipTime)
     {
         isSlip = true;
         SlipTimmer = slipTime;
