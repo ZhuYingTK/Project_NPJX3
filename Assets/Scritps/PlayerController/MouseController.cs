@@ -12,6 +12,8 @@ public class MouseController : MonoBehaviour
     public float deceleration = 5.0f;// 减速度
     public float bounceForce = 100f;//弹回的力
 
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
     private Rigidbody2D rb;
     private Vector2 inputVector;
 
@@ -21,16 +23,43 @@ public class MouseController : MonoBehaviour
     private int currentTeleportPointIndex = 0;
     private int timeLeft = 0;
     private bool onChoice = false;
-
+    private bool isDead = false;
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
+
+        Vector3 currentVelocity = rb.velocity;
+        float horizontalSpeed = rb.velocity.x;
+
+        Debug.Log(horizontalSpeed);
+
+        animator.SetBool("isDead", isDead);
+
+        if (currentVelocity.magnitude == 0f)
+        {
+            animator.SetBool("isStand", true);
+        }
+        else
+        {
+            animator.SetFloat("Speed", horizontalSpeed);
+            animator.SetBool("isStand", false);
+            if (horizontalSpeed >= 0)
+            {
+                spriteRenderer.flipX = false;
+            }
+            else
+            {
+                spriteRenderer.flipX = true;
+            }
+        }
 
         if (onChoice)
         {
@@ -53,6 +82,7 @@ public class MouseController : MonoBehaviour
 
                 //Teleport();
                 StartCoroutine(ChangeOptionEverySecond());
+                //spriteRenderer.enabled = false;
 
             }
         }
@@ -60,6 +90,10 @@ public class MouseController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
+
+
+
         // 是否有输入
         bool isInput = inputVector.x != 0 || inputVector.y != 0;
 
@@ -214,6 +248,7 @@ public class MouseController : MonoBehaviour
     {
         onChoice = true;
         timeLeft = 3;
+        spriteRenderer.enabled = false;
 
         change_color(teleportPoints[currentTeleportPointIndex], Color.blue);
 
@@ -262,6 +297,7 @@ public class MouseController : MonoBehaviour
 
         transform.position = teleportPoints[currentTeleportPointIndex].position;
 
+        spriteRenderer.enabled = true;
     }
 
 
