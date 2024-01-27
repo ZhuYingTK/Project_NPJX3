@@ -113,4 +113,7 @@ public class EventKey
     public static readonly string MouseGetFood = "MOUSEGETFOOD"; //老鼠得到了奶酪
     public static readonly string GameStart = "GAMESTART"; //游戏开始
     public static readonly string GameEnd = "GAMEEND"; //游戏结束
+
+    public static readonly string MouseStartSteal = "MOUSESTARTSTEAL"; //老鼠开始偷奶酪
+    public static readonly string MouseEndSteal = "MOUSEENDSTEAL"; //老鼠开始偷奶酪
 }
