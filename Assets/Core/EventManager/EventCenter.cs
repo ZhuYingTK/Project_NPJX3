@@ -108,20 +108,9 @@ public class EventData : IEventData
 
 public class EventKey
 {
-    public static readonly string SATURATION_CHANGE = "SATURATION_CHANGE";//饥饿值改变
-    public static readonly string BATTLE_FINISHED = "BATTLE_FINISHED";//战斗结束
-    //UI相关
-    public static readonly string UI_OPEN_TREASURE = "UI_OPEN_TREASURE";//打开宝箱UI
-    public static readonly string UI_OPEN_PLAYERBAG = "UI_OPEN_PLAYERBAG";//打开背包UI
-    public static readonly string UI_OPEN_DROPS = "UI_OPEN_DROPS";//打开掉落物UI
-    public static readonly string UI_TEAMDIALOGREFRESH = "UI_TEAMDIALOGREFRESH";//刷新队伍状态UI
-    //创建UI
-    public static readonly string UI_CREATE_CONFIRM = "UI_CREATE_CONFIRM";//创建地城进入UI
-    //交互相关
-    public static readonly string ENTER_INTERRACT_RANGE = "ENTER_INTERRACT_RANGE";//进入可交互物范围
-    public static readonly string EXIT_INTERRACT_RANGE = "EXIT_INTERRACT_RANGE";//离开可交互物范围
-    //测试相关
-    public static readonly string TEST_DUNGEON_AMBUSH = "TEST_DUNGEON_AMBUSH";//测试——地城——遭遇埋伏
-    public static readonly string TEST_DUNGEON_FINDHERB = "TEST_DUNGEON_FINDHERB";//测试——地城——发现草药
-    public static readonly string TEST_DUNGEON_HIDDENARROW = "TEST_DUNGEON_HIDDENARROW";//测试——地城——暗箭袭击
+    public static readonly string HoleCreateDown = "HOLECREATEDOWN"; //地洞创建完毕
+    public static readonly string CatCatchMouse = "CATCATCHMOUSE"; //猫抓到了老鼠
+    public static readonly string MouseGetFood = "MOUSEGETFOOD"; //老鼠得到了奶酪
+    public static readonly string GameStart = "GAMESTART"; //游戏开始
+    public static readonly string GameEnd = "GAMEEND"; //游戏结束
 }
