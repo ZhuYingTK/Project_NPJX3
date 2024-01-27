@@ -63,21 +63,21 @@ public class MouseController : MonoBehaviour
 
         if (onChoice)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.Keypad0))
             {
                 SelectCurrentOption();
             }
         }
         else
         {
-            float inputX1 = Input.GetKey(KeyCode.A) ? -1 : 0;
-            float inputX2 = Input.GetKey(KeyCode.D) ? 1 : 0;
-            float inputY1 = Input.GetKey(KeyCode.S) ? -1 : 0;
-            float inputY2 = (Input.GetKey(KeyCode.W) ? 1 : 0);
+            float inputX1 = Input.GetKey(KeyCode.LeftArrow) ? -1 : 0;
+            float inputX2 = Input.GetKey(KeyCode.RightArrow) ? 1 : 0;
+            float inputY1 = Input.GetKey(KeyCode.DownArrow) ? -1 : 0;
+            float inputY2 = (Input.GetKey(KeyCode.UpArrow) ? 1 : 0);
             inputVector = new Vector2(inputX1 + inputX2, inputY1 + inputY2).normalized;
             Debug.Log(inputVector);
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.Keypad0))
             {
 
                 //Teleport();

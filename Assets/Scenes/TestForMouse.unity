@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 1643231688}
   - component: {fileID: 1643231694}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -676,7 +676,7 @@ MonoBehaviour:
   shootingSpeed: 10
   shootDeceleration: 10
   shootDistance: 10
-  bounciness: 1
+  shootCD: 5
   rotationSpeed: 90
   Arrow: {fileID: 176029654}
   shootPhyMaterial: {fileID: 6200000, guid: 23b5f0eb8bb8e1846ae7900bc33ff13d, type: 2}
