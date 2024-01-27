@@ -25,12 +25,14 @@ public class MouseController : MonoBehaviour
     private int timeLeft = 0;
     private bool onChoice = false;
     private bool isDead = false;
-    private bool moveable = true;
+    private bool moveable = false;
 
     public static MouseController Instance;
 
     private bool isCheese = false;
     public float cheeseEatingRate = 1f;
+
+    private float holeCD = 0f;
 
 
 
@@ -46,7 +48,7 @@ public class MouseController : MonoBehaviour
         EventCenter.AddSingleEventListener(EventKey.GameStart, () => { moveable = true; });
         EventCenter.AddSingleEventListener(EventKey.GameEnd, () => { moveable = false; });
 
-        Debug.Log("事件注册");
+        //Debug.Log("事件注册");
     }
 
 
@@ -117,22 +119,32 @@ public class MouseController : MonoBehaviour
             //Debug.Log(inputVector);
         }
 
-        if (onChoice)
+        Debug.Log("holeCD:" + holeCD);
+        if (holeCD > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Keypad0))
-            {
-                SelectCurrentOption();
-            }
+            holeCD -= Time.deltaTime;
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Keypad0))
+            if (onChoice)
             {
-                //Teleport();
-                StartCoroutine(ChangeOptionEverySecond());
-                //spriteRenderer.enabled = false;
+                if (Input.GetKeyDown(KeyCode.Keypad0))
+                {
+                    SelectCurrentOption();
+                    Debug.Log("holeCD:" + holeCD);
+                }
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Keypad0))
+                {
+                    //Teleport();
+                    StartCoroutine(ChangeOptionEverySecond());
+                    //spriteRenderer.enabled = false;
+                }
             }
         }
+        
 
         if (Input.GetKeyDown(KeyCode.Keypad2))
         {
@@ -154,7 +166,6 @@ public class MouseController : MonoBehaviour
 
     private void Stop_cheese()
     {
-        //isCheese = false;
         moveable = true;
         EventCenter.TriggerEvent(EventKey.MouseEndSteal);
     }
@@ -164,9 +175,6 @@ public class MouseController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-
-
 
         // 是否有输入
         bool isInput = inputVector.x != 0 || inputVector.y != 0;
@@ -191,25 +199,6 @@ public class MouseController : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
             }
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        print('1');
-
-        // 检查是否与其他对象发生碰撞
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            // 获取碰撞法线，用于计算反弹方向
-            Vector2 normal = collision.contacts[0].normal;
-
-            // 计算反弹方向
-            Vector2 bounceDirection = Vector2.Reflect(transform.position.normalized, normal).normalized;
-
-            // 使用AddForce施加反弹力
-            rb.AddForce(bounceDirection * bounceForce, ForceMode2D.Impulse);
         }
     }
 
@@ -382,6 +371,8 @@ public class MouseController : MonoBehaviour
         moveable = true;
 
         timeLeft = 0;
+
+        holeCD = 5f;
 
         change_color(teleportPoints[currentTeleportPointIndex], Color.black);
 
