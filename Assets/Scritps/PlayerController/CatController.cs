@@ -53,6 +53,9 @@ public class CatController : MonoBehaviour
 
     private Vector2 lastForward;    //此前位置
 
+    private bool isSlip = false;
+    private float SlipTimmer;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -81,7 +84,7 @@ public class CatController : MonoBehaviour
     {
         if(!gameStart) return;
         //普通
-        if (!isPreShooting && !isShooting)
+        if (!isPreShooting && !isShooting && !isSlip)
         {
             float inputX1 = Input.GetKey(KeyCode.A) ? -1 : 0;
             float inputX2 = Input.GetKey(KeyCode.D) ? 1 : 0;
@@ -133,6 +136,11 @@ public class CatController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.H) && !canCatch) Debug.Log("正在抓捕CD中,还剩" + CatchCDTimmer+"秒");
         if (Input.GetKeyDown(KeyCode.H) && canCatch)
         {
+            _animator.SetTrigger("Catch");
+            if (isShooting)
+            {
+                EndShooting();
+            }
             canCatch = false;
             CatchCDTimmer = CatchCD;
             if (IsInFieldOfView())
@@ -172,6 +180,25 @@ public class CatController : MonoBehaviour
                 CatchCDTimmer -= Time.deltaTime;
             }
         }
+
+        if (isSlip)
+        {
+            if (SlipTimmer <= 0)
+            {
+                isSlip = false;
+            }
+            else
+            {
+                SlipTimmer -= Time.deltaTime;
+            }
+        }
+    }
+
+    private void OnSlip(float slipTime)
+    {
+        isSlip = true;
+        SlipTimmer = slipTime;
+        rb.velocity = rb.velocity.normalized * maxSpeed;
     }
 
     //切换到弹射状态
@@ -216,7 +243,7 @@ public class CatController : MonoBehaviour
         }
 
         // 限制最大速度,弹射状态不减速
-        if (!isShooting)
+        if (!isShooting && !isSlip)
         {
             // 限制最大速度
             if (rb.velocity.magnitude > maxSpeed)
