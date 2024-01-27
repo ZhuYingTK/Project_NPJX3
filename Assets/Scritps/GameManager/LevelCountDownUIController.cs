@@ -7,16 +7,16 @@ public class LevelCountDownUIController : MonoBehaviour
 {
     public static LevelCountDownUIController instance;
 
-    [Label("µ¹¼ÆÊ±UI")]
+    [Label("å€’è®¡æ—¶UI")]
     public TextMeshProUGUI CountDownUI;
 
-    [Label("¿ªÊ¼µ¹¼ÆÊ±UI")]
+    [Label("å¼€å§‹å€’è®¡æ—¶UI")]
     public TextMeshProUGUI StartCountDownUI;
 
-    [Label("ÀÏÊóÐèÒªµÄÊ³Îï×ÜÊýUI")]
+    [Label("è€é¼ éœ€è¦çš„é£Ÿç‰©æ€»æ•°UI")]
     public TextMeshProUGUI TotalMouseFood;
 
-    [Label("ÀÏÊóµ±Ç°µÄÊ³ÎïÊýUI")]
+    [Label("è€é¼ å½“å‰çš„é£Ÿç‰©æ•°UI")]
     public TextMeshProUGUI CurMouseFood;
 
     private void Awake()

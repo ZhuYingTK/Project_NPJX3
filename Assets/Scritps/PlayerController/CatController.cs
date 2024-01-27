@@ -152,6 +152,7 @@ public class CatController : MonoBehaviour
             {
                 Debug.Log("抓捕失败");
             }
+            EventCenter.TriggerEvent(EventKey.CatCatchChange,1);
         }
         //更新坐标
         _lastPosition = transform.position;
@@ -162,10 +163,12 @@ public class CatController : MonoBehaviour
             if (shootCDTimmer <= 0)
             {
                 canShoot = true;
+                EventCenter.TriggerEvent(EventKey.CatShootChange,0);
             }
             else
             {
                 shootCDTimmer -= Time.deltaTime;
+                EventCenter.TriggerEvent(EventKey.CatShootChange,shootCDTimmer/shootCD);
             }
         }
 
@@ -174,10 +177,12 @@ public class CatController : MonoBehaviour
             if (CatchCDTimmer <= 0)
             {
                 canCatch = true;
+                EventCenter.TriggerEvent(EventKey.CatCatchChange,0);
             }
             else
             {
                 CatchCDTimmer -= Time.deltaTime;
+                EventCenter.TriggerEvent(EventKey.CatCatchChange,CatchCDTimmer/CatchCD);
             }
         }
 
@@ -221,6 +226,7 @@ public class CatController : MonoBehaviour
         rb.velocity = shootingSpeed * shootVector.normalized;
         rb.sharedMaterial = shootPhyMaterial;
         _animator.SetBool("isShoot",true);
+        EventCenter.TriggerEvent(EventKey.CatShootChange,1);
     }
 
     private void EndShooting()
