@@ -33,7 +33,7 @@ public class Cheese : MonoBehaviour
         CanBeStolen = false;
 
         //¿ªÊ¼Íµ
-        EventCenter.AddSingleEventListener(EventKey.MouseStartSteal, () => 
+        EventCenter.AddEventListener(EventKey.MouseStartSteal, () => 
         { 
             if(CanBeStolen)
             {
@@ -44,7 +44,7 @@ public class Cheese : MonoBehaviour
         });
 
         //½áÊøÍµ
-        EventCenter.AddSingleEventListener(EventKey.MouseEndSteal, () => 
+        EventCenter.AddEventListener(EventKey.MouseEndSteal, () => 
         { 
             if(IsStealing)
             {
