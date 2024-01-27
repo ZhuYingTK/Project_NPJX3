@@ -25,12 +25,15 @@ public class MouseController : MonoBehaviour
     private bool onChoice = false;
     private bool isDead = false;
 
+    public static MouseController Instance;
+
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Instance = this;
     }
 
     private void Update()

@@ -23,6 +23,10 @@ public class CatController : MonoBehaviour
     public float rotationSpeed = 90;//旋转速度
     [SerializeField,Label("箭头指示物")]
     public GameObject Arrow;    //  箭头指示物
+    [SerializeField, Label("可以抓老鼠的距离")] 
+    public float mouseRange;
+    [SerializeField, Label("可以抓老鼠的夹角")] 
+    public float mouseAngel;
 
     public PhysicsMaterial2D shootPhyMaterial;
     public PhysicsMaterial2D originPhyMaterial;
