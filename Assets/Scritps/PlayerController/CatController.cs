@@ -51,7 +51,7 @@ public class CatController : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         canShoot = true;
-        EventCenter.AddEventListener(EventKey.GAME_START,GameStart);
+        EventCenter.AddEventListener(EventKey.GameStart,GameStart);
     }
 
     private void GameStart()

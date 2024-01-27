@@ -108,5 +108,9 @@ public class EventData : IEventData
 
 public class EventKey
 {
-    public static readonly string GAME_START = "GAME_START";//游戏开始
+    public static readonly string HoleCreateDown = "HOLECREATEDOWN"; //地洞创建完毕
+    public static readonly string CatCatchMouse = "CATCATCHMOUSE"; //猫抓到了老鼠
+    public static readonly string MouseGetFood = "MOUSEGETFOOD"; //老鼠得到了奶酪
+    public static readonly string GameStart = "GAMESTART"; //游戏开始
+    public static readonly string GameEnd = "GAMEEND"; //游戏结束
 }
