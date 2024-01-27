@@ -74,6 +74,7 @@ public class CatController : MonoBehaviour
         canShoot = true;
         canCatch = true;
         isPreShooting = false;
+        isShooting = false;
     }
 
     private void Update()
