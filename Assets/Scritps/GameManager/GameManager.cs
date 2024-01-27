@@ -7,15 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Header("角色相关")]
-    // 猫是否准备好
-    [SerializeField, Label("猫是否准备好")]
-    public bool IsCatReady = false;
     [Label("猫预制体")]
     public GameObject CatPrefab;
     GameObject cat;
-    //老鼠是否准备好
-    [SerializeField, Label("老鼠是否准备好")]
-    public bool IsMouseReady = false;
     [Label("老鼠预制体")]
     public GameObject MousePrefab;
     GameObject mouse;
@@ -40,6 +34,19 @@ public class GameManager : MonoBehaviour
     public int MouseGetFoodCount = 0;
     [Label("老鼠是否被抓到")]
     public bool IsMouseCatched = false;
+
+    [Label("奶酪预制体")]
+    public GameObject Cheese;
+    [Label("奶酪位置")]
+    public Transform[] CheesePrefabLocationList = new Transform[5];
+    // 当前奶酪暂存
+    List<GameObject> CheeseList = new List<GameObject>();
+
+    [Label("猫出生点")]
+    public Transform CatSpawnPoint;
+    [Label("老鼠出生点")]
+    public Transform MouseSpawnPoint;
+
 
     //开始倒计时剩余时间
     [HideInInspector]
@@ -91,11 +98,13 @@ public class GameManager : MonoBehaviour
         {
             cat = Instantiate(CatPrefab, Vector3.zero, Quaternion.identity);
         }
+        cat.transform.position = CatSpawnPoint.position;
 
         if (mouse == null && MousePrefab != null)
         {
             mouse = Instantiate(MousePrefab, Vector3.zero, Quaternion.identity);
         }
+        mouse.transform.position = MouseSpawnPoint.position;
 
         //重置各参数
         RemainStartLevelTime = ChasingPeriodStartCountDown;
@@ -117,11 +126,26 @@ public class GameManager : MonoBehaviour
         //TODO:清空老鼠洞
         CircleManager.instance.ResetAllHole();
         //TODO:食物状态复位
-
+        CheeseReset();
         //跳介绍界面
         if (IntroductionUI != null)
         {
             IntroductionUI.SetActive(true);
+        }
+    }
+
+    void CheeseReset()
+    {
+        foreach(var cheese in CheeseList)
+        {
+            Destroy(cheese);
+        }
+        CheeseList.Clear();
+
+        foreach(var location in CheesePrefabLocationList)
+        {
+            var go = Instantiate(Cheese, location.position, Quaternion.identity);
+            CheeseList.Add(go);
         }
     }
 
@@ -195,16 +219,6 @@ public class GameManager : MonoBehaviour
                 MouseWinUI.SetActive(true);
             }
         }
-
-        //if(mouse != null)
-        //{
-        //    Destroy(mouse);
-        //}
-
-        //if(cat != null)
-        //{
-        //    Destroy(cat);
-        //}
     }
 
 

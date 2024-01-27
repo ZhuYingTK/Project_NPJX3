@@ -316,7 +316,7 @@ Transform:
   m_GameObject: {fileID: 2539315111991255194}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -955.39, y: -538.83, z: 0}
+  m_LocalPosition: {x: -956.04, y: -540.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -363,7 +363,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1000
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 32dcdc69fe52dd648aeb2fd3e774728f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -371,7 +371,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &472937034430239261
@@ -384,7 +384,7 @@ Animator:
   m_GameObject: {fileID: 2539315111991255194}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a28088c318f64e4b8087cd1f8b148df, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -801,7 +801,7 @@ Transform:
   m_GameObject: {fileID: 3491280644900003440}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -954, y: -540.2, z: 0}
+  m_LocalPosition: {x: -955.99, y: -540.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -848,7 +848,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1000
-  m_Sprite: {fileID: 21300000, guid: deccfc6f78772854fbd1e81daf657453, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dcb441aad207dd64abf83ec51094fa27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1601,10 +1601,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7bc48f5139abc4e9420ff8d7a318a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCatReady: 0
   CatPrefab: {fileID: 4096779799444879419, guid: a377a6e298919a74aa72ff618fb16cf1,
     type: 3}
-  IsMouseReady: 0
   MousePrefab: {fileID: 4037060202047259904, guid: 23c91084aa483494585691dad4cb29a4,
     type: 3}
   IsPreparePeriod: 0
@@ -1614,6 +1612,15 @@ MonoBehaviour:
   MouseNeedFoodCount: 4
   MouseGetFoodCount: 0
   IsMouseCatched: 0
+  Cheese: {fileID: 8022735940704357213, guid: bfefe0e780e8b264e9e3ef5adbb5560d, type: 3}
+  CheesePrefabLocationList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CatSpawnPoint: {fileID: 0}
+  MouseSpawnPoint: {fileID: 0}
   RemainStartLevelTime: 0
   RemainLevelTime: 0
   IsGaming: 0
