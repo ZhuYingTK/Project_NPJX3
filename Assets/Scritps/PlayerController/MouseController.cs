@@ -17,15 +17,22 @@ public class MouseController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 inputVector;
 
-    public Transform[] teleportPoints; // 传送点数组
+    public List<Transform> teleportPoints; // 传送点数组
+    public Transform[] cheesePoints;
     public float teleportRadius = 2f; // 玩家必须在此半径内按下 "E" 键才能传送
 
     private int currentTeleportPointIndex = 0;
     private int timeLeft = 0;
     private bool onChoice = false;
     private bool isDead = false;
+    private bool moveable = true;
 
     public static MouseController Instance;
+
+    private bool isCheese = false;
+    public float cheeseEatingRate = 1f;
+
+
 
 
     private void Start()
@@ -34,7 +41,14 @@ public class MouseController : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         Instance = this;
+
+        EventCenter.AddSingleEventListener(EventKey.HoleCreateDown, (List<Transform> holeTrans) => { teleportPoints = holeTrans; });
+        EventCenter.AddSingleEventListener(EventKey.GameStart, () => { moveable = true; });
+        EventCenter.AddSingleEventListener(EventKey.GameEnd, () => { moveable = false; });
+
+        Debug.Log("事件注册");
     }
+
 
     private void Update()
     {
@@ -42,7 +56,7 @@ public class MouseController : MonoBehaviour
         Vector3 currentVelocity = rb.velocity;
         float horizontalSpeed = rb.velocity.x;
 
-        Debug.Log(horizontalSpeed);
+        //Debug.Log(horizontalSpeed);
 
         animator.SetBool("isDead", isDead);
 
@@ -63,6 +77,45 @@ public class MouseController : MonoBehaviour
                 spriteRenderer.flipX = true;
             }
         }
+        /*
+        if (isCheese)
+        {
+            Transform closeCheese = FindClosestCheese(transform);
+            if(closeCheese == null)
+            {
+                Stop_cheese();
+                Debug.Log("没有可以吃的cheese");
+            }
+            else
+            {
+                //TODO:挖矿逻辑
+                Transform triangleTransform = closeCheese.GetChild(0);
+                cheese remain_cheese = triangleTransform.GetComponent<cheese>();
+
+                Debug.Log(remain_cheese.cheeseHP);
+
+                remain_cheese.cheeseHP -= Time.deltaTime * cheeseEatingRate;
+
+                if(remain_cheese.cheeseHP <= 0)
+                {
+                    Stop_cheese();
+                    remain_cheese.cheeseHP = 0;
+                    closeCheese.position = new Vector3(10000000f, 0f, 0f);
+                }
+
+            }
+        }
+        */
+
+        if (moveable)
+        {
+            float inputX1 = Input.GetKey(KeyCode.LeftArrow) ? -1 : 0;
+            float inputX2 = Input.GetKey(KeyCode.RightArrow) ? 1 : 0;
+            float inputY1 = Input.GetKey(KeyCode.DownArrow) ? -1 : 0;
+            float inputY2 = (Input.GetKey(KeyCode.UpArrow) ? 1 : 0);
+            inputVector = new Vector2(inputX1 + inputX2, inputY1 + inputY2).normalized;
+            //Debug.Log(inputVector);
+        }
 
         if (onChoice)
         {
@@ -73,23 +126,41 @@ public class MouseController : MonoBehaviour
         }
         else
         {
-            float inputX1 = Input.GetKey(KeyCode.LeftArrow) ? -1 : 0;
-            float inputX2 = Input.GetKey(KeyCode.RightArrow) ? 1 : 0;
-            float inputY1 = Input.GetKey(KeyCode.DownArrow) ? -1 : 0;
-            float inputY2 = (Input.GetKey(KeyCode.UpArrow) ? 1 : 0);
-            inputVector = new Vector2(inputX1 + inputX2, inputY1 + inputY2).normalized;
-            Debug.Log(inputVector);
-
             if (Input.GetKeyDown(KeyCode.Keypad0))
             {
-
                 //Teleport();
                 StartCoroutine(ChangeOptionEverySecond());
                 //spriteRenderer.enabled = false;
-
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            Start_cheese();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Keypad2))
+        {
+            Stop_cheese();
+        }
+
     }
+
+    private void Start_cheese()
+    {
+        moveable = false;
+        EventCenter.TriggerEvent(EventKey.MouseStartSteal);
+    }
+
+    private void Stop_cheese()
+    {
+        //isCheese = false;
+        moveable = true;
+        EventCenter.TriggerEvent(EventKey.MouseEndSteal);
+    }
+
+
+
 
     private void FixedUpdate()
     {
@@ -142,11 +213,11 @@ public class MouseController : MonoBehaviour
         }
     }
 
-
+    /*
     void Teleport()
     {
         // 检查传送点数组是否为空
-        if (teleportPoints.Length == 0)
+        if (teleportPoints.Count == 0)
         {
             Debug.LogError("No teleport points defined!");
             return;
@@ -157,13 +228,26 @@ public class MouseController : MonoBehaviour
 
 
     }
+    */
+    Transform FindClosestCheese(Transform transform)
+    {
+        foreach (Transform cheesePoint in cheesePoints)
+        {
+            if (Vector2.Distance(transform.position, cheesePoint.position) <= teleportRadius)
+            {
+                return cheesePoint;
+            }
+        }
+
+        return null;
+    }
 
 
     Transform FindClosestTeleportPoint(Transform currentPoint)
     {
         foreach (Transform teleportPoint in teleportPoints)
         {
-            if (teleportPoint != currentPoint && IsPlayerNearTeleportPoint(teleportPoint))
+            if (IsPlayerNearTeleportPoint(teleportPoint))
             {
                 return teleportPoint;
             }
@@ -178,11 +262,11 @@ public class MouseController : MonoBehaviour
     }
 
 
-
+    /*
     IEnumerator WaitForTwoSeconds()
     {
 
-        Transform targetTeleportPoint = teleportPoints[Random.Range(0, teleportPoints.Length)];
+        Transform targetTeleportPoint = teleportPoints[Random.Range(0, teleportPoints.Count)];
 
         // 查找玩家是否接近任何传送点，并传送
         Transform closeTeleportPoint = FindClosestTeleportPoint(transform);
@@ -193,7 +277,7 @@ public class MouseController : MonoBehaviour
 
             // 等待2秒钟
 
-            Debug.Log(targetTeleportPoint);
+            //Debug.Log(targetTeleportPoint);
 
             change_color(targetTeleportPoint, Color.blue);
 
@@ -202,7 +286,7 @@ public class MouseController : MonoBehaviour
             change_color(targetTeleportPoint, Color.red);
 
             // 在这里添加你想要在等待结束后执行的代码
-            Debug.Log("等待结束，2秒过去了！");
+            //Debug.Log("等待结束，2秒过去了！");
 
             transform.position = targetTeleportPoint.position;
         }
@@ -211,13 +295,13 @@ public class MouseController : MonoBehaviour
             Debug.Log("Player is not close enough to any teleport point.");
         }
     }
-
+    */
 
 
     void change_color(Transform target_transform, Color newColor)
     {
 
-        Transform circleTransform = target_transform.GetChild(0);
+        Transform circleTransform = target_transform;
         if (circleTransform != null)
         {
             // 获取子物体的Renderer组件
@@ -250,6 +334,7 @@ public class MouseController : MonoBehaviour
     System.Collections.IEnumerator ChangeOptionEverySecond()
     {
         onChoice = true;
+        moveable = false;
         timeLeft = 3;
         spriteRenderer.enabled = false;
 
@@ -277,11 +362,11 @@ public class MouseController : MonoBehaviour
     void ChangeOption()
     {
         // 切换到下一个选项
-        change_color(teleportPoints[currentTeleportPointIndex], Color.red);
+        change_color(teleportPoints[currentTeleportPointIndex], Color.black);
 
-        currentTeleportPointIndex = (currentTeleportPointIndex + 1) % teleportPoints.Length;
+        currentTeleportPointIndex = (currentTeleportPointIndex + 1) % teleportPoints.Count;
 
-        change_color(teleportPoints[currentTeleportPointIndex], Color.blue);
+        change_color(teleportPoints[currentTeleportPointIndex], Color.yellow);
 
         Debug.Log("Current Option: " + teleportPoints[currentTeleportPointIndex]);
         timeLeft -= 1;
@@ -294,9 +379,11 @@ public class MouseController : MonoBehaviour
 
         onChoice = false;
 
+        moveable = true;
+
         timeLeft = 0;
 
-        change_color(teleportPoints[currentTeleportPointIndex], Color.red);
+        change_color(teleportPoints[currentTeleportPointIndex], Color.black);
 
         transform.position = teleportPoints[currentTeleportPointIndex].position;
 
