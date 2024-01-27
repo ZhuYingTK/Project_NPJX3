@@ -42,7 +42,10 @@ public class MouseController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         Instance = this;
 
-        EventCenter.AddSingleEventListener(EventKey.HoleCreateDown, (List<Transform> holeTrans) => {teleportPoints = holeTrans; Debug.Log("事件已触发" + teleportPoints); });
+        EventCenter.AddSingleEventListener(EventKey.HoleCreateDown, (List<Transform> holeTrans) => { teleportPoints = holeTrans; });
+        EventCenter.AddSingleEventListener(EventKey.GameStart, () => { moveable = true; });
+        EventCenter.AddSingleEventListener(EventKey.GameEnd, () => { moveable = false; });
+
         Debug.Log("事件注册");
     }
 
