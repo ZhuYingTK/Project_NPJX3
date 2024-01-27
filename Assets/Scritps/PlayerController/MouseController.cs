@@ -326,6 +326,7 @@ public class MouseController : MonoBehaviour
         moveable = false;
         timeLeft = 3;
         spriteRenderer.enabled = false;
+        animator.SetBool("inChoice", true);
 
         change_color(teleportPoints[currentTeleportPointIndex], Color.blue);
 
@@ -373,6 +374,8 @@ public class MouseController : MonoBehaviour
         timeLeft = 0;
 
         holeCD = 5f;
+
+        animator.SetBool("inChoice", false);
 
         change_color(teleportPoints[currentTeleportPointIndex], Color.black);
 
