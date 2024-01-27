@@ -287,38 +287,6 @@ public class MouseController : MonoBehaviour
     */
 
 
-    void change_color(Transform target_transform, Color newColor)
-    {
-
-        Transform circleTransform = target_transform;
-        if (circleTransform != null)
-        {
-            // 获取子物体的Renderer组件
-            Renderer childRenderer = circleTransform.GetComponent<Renderer>();
-
-            // 检查是否找到了Renderer组件
-            if (childRenderer != null)
-            {
-                // 获取材质数组
-                Material[] materials = childRenderer.materials;
-
-                // 遍历每个材质，修改颜色
-                for (int i = 0; i < materials.Length; i++)
-                {
-                    materials[i].color = newColor;
-                }
-            }
-            else
-            {
-                Debug.LogError("Child object does not have a Renderer component.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Child object with the name 'Circle' not found.");
-        }
-
-    }
 
     System.Collections.IEnumerator ChangeOptionEverySecond()
     {
@@ -326,8 +294,9 @@ public class MouseController : MonoBehaviour
         moveable = false;
         timeLeft = 3;
         spriteRenderer.enabled = false;
+        animator.SetBool("inChoice", true);
 
-        change_color(teleportPoints[currentTeleportPointIndex], Color.blue);
+        teleportPoints[currentTeleportPointIndex].gameObject.GetComponent<HoleBehavior>().SetToActive();
 
         while (timeLeft > 0)
         {
@@ -351,11 +320,11 @@ public class MouseController : MonoBehaviour
     void ChangeOption()
     {
         // 切换到下一个选项
-        change_color(teleportPoints[currentTeleportPointIndex], Color.black);
-
+        teleportPoints[currentTeleportPointIndex].GetComponent<HoleBehavior>().SetToCommon();
+        
         currentTeleportPointIndex = (currentTeleportPointIndex + 1) % teleportPoints.Count;
 
-        change_color(teleportPoints[currentTeleportPointIndex], Color.yellow);
+        teleportPoints[currentTeleportPointIndex].GetComponent<HoleBehavior>().SetToActive();
 
         Debug.Log("Current Option: " + teleportPoints[currentTeleportPointIndex]);
         timeLeft -= 1;
@@ -374,7 +343,9 @@ public class MouseController : MonoBehaviour
 
         holeCD = 5f;
 
-        change_color(teleportPoints[currentTeleportPointIndex], Color.black);
+        animator.SetBool("inChoice", false);
+
+        teleportPoints[currentTeleportPointIndex].gameObject.GetComponent<HoleBehavior>().SetToCommon();
 
         transform.position = teleportPoints[currentTeleportPointIndex].position;
 

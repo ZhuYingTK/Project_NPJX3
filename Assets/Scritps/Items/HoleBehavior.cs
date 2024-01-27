@@ -16,6 +16,6 @@ public class HoleBehavior : MonoBehaviour
     public void SetToActive()
     {
         commonHole.SetActive(false);
-        commonHole.SetActive(true);
+        activeHole.SetActive(true);
     }
 }
