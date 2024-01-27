@@ -147,7 +147,7 @@ public class CatController : MonoBehaviour
         canShoot = false;
         shootCDTimmer = shootCD;
         //更改速度
-        rb.velocity = shootingSpeed * shootVector;
+        rb.velocity = shootingSpeed * shootVector.normalized;
         rb.sharedMaterial = shootPhyMaterial;
         _animator.SetBool("isShoot",true);
     }
