@@ -137,6 +137,9 @@ MonoBehaviour:
   shootCD: 5
   rotationSpeed: 180
   Arrow: {fileID: 6186710404147383779}
+  CatchCD: 10
+  mouseRange: 5
+  mouseAngel: 45
   shootPhyMaterial: {fileID: 6200000, guid: 23b5f0eb8bb8e1846ae7900bc33ff13d, type: 2}
   originPhyMaterial: {fileID: 6200000, guid: b2d07e7feaf367a449cc99b07eefebf6, type: 2}
   shootKey: 106

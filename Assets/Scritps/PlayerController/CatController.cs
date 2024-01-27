@@ -23,10 +23,12 @@ public class CatController : MonoBehaviour
     public float rotationSpeed = 90;//旋转速度
     [SerializeField,Label("箭头指示物")]
     public GameObject Arrow;    //  箭头指示物
+    [SerializeField, Label("抓捕冷却")] 
+    public float CatchCD;
     [SerializeField, Label("可以抓老鼠的距离")] 
-    public float mouseRange;
+    public float mouseRange = 10f;
     [SerializeField, Label("可以抓老鼠的夹角")] 
-    public float mouseAngel;
+    public float mouseAngel = 45f;
 
     public PhysicsMaterial2D shootPhyMaterial;
     public PhysicsMaterial2D originPhyMaterial;
@@ -44,30 +46,39 @@ public class CatController : MonoBehaviour
     private Vector3 _lastPosition;  //上次的位置
     private Animator _animator;
     private float shootCDTimmer;    //发射简易计时器
+    private float CatchCDTimmer;
     private bool canShoot;      //可以发射
+    private bool canCatch;      //可以捕捉
     private bool gameStart = false;
 
     private Vector2 lastForward;    //此前位置
 
     private void Start()
     {
-        isPreShooting = false;
         rb = GetComponent<Rigidbody2D>();
         rb.sharedMaterial = originPhyMaterial;
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-        canShoot = true;
         EventCenter.AddEventListener(EventKey.GameStart,GameStart);
+        EventCenter.AddEventListener(EventKey.GameEnd,GameEnd);
+    }
+
+    private void GameEnd()
+    {
+        gameStart = false;
     }
 
     private void GameStart()
     {
         gameStart = true;
+        canShoot = true;
+        canCatch = true;
+        isPreShooting = false;
     }
 
     private void Update()
     {
-        //if(!gameStart) return;
+        if(!gameStart) return;
         //普通
         if (!isPreShooting && !isShooting)
         {
@@ -117,6 +128,22 @@ public class CatController : MonoBehaviour
                 EndShooting();
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.H) && !canCatch) Debug.Log("正在抓捕CD中,还剩" + CatchCDTimmer+"秒");
+        if (Input.GetKeyDown(KeyCode.H) && canCatch)
+        {
+            canCatch = false;
+            CatchCDTimmer = CatchCD;
+            if (IsInFieldOfView())
+            {
+                EventCenter.TriggerEvent(EventKey.CatCatchMouse);
+                Debug.Log("抓捕成功");
+            }
+            else
+            {
+                Debug.Log("抓捕失败");
+            }
+        }
         //更新坐标
         _lastPosition = transform.position;
         
@@ -127,9 +154,21 @@ public class CatController : MonoBehaviour
             {
                 canShoot = true;
             }
-            else if(!canShoot)
+            else
             {
                 shootCDTimmer -= Time.deltaTime;
+            }
+        }
+
+        if (!canCatch)
+        {
+            if (CatchCDTimmer <= 0)
+            {
+                canCatch = true;
+            }
+            else
+            {
+                CatchCDTimmer -= Time.deltaTime;
             }
         }
     }
@@ -224,5 +263,23 @@ public class CatController : MonoBehaviour
     private float VectorToAngle(Vector2 vector)
     {
         return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
+    }
+    
+    private bool IsInFieldOfView()
+    {
+        if(MouseController.Instance == null) return false;
+        Vector2 MousePosition = MouseController.Instance.transform.position;
+        Vector2 directionToB = MousePosition - (Vector2)transform.position; // 计算A到B的方向
+        float distanceToB = directionToB.magnitude; // A到B的距离
+
+        if (distanceToB <= mouseRange) // 检查距离
+        {
+            float angleToB = Vector2.Angle(rb.velocity.normalized, directionToB); // 计算A到B的角度
+            if (angleToB <= mouseAngel) // 检查角度
+            {
+                return true; // B在A的扇形范围内
+            }
+        }
+        return false; // B不在A的扇形范围内
     }
 }
