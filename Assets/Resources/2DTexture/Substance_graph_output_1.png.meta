@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 91f9fbede25a4dd428f9065caedb9911
+guid: a125dafd555ae664f85213fa31d0634d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Substance_graph_output_0
+      name: Substance_graph_output_1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea00e76948113634491f16a36a0d1486
-      internalID: 2047780864
+      spriteID: 845e06a0d03061b4bb7b6754d2a0c2e6
+      internalID: -85962049
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Substance_graph_output_1
+      name: Substance_graph_output_1_1
       rect:
         serializedVersion: 2
         x: 682
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 926333ae760eb2642818f8e34823ceae
-      internalID: 951501228
+      spriteID: 13fe05e056b1c0949bff08e18a64603d
+      internalID: 2043022885
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Substance_graph_output_2
+      name: Substance_graph_output_1_2
       rect:
         serializedVersion: 2
         x: 1364
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1988fea484d33ef48a17c45187fde5b9
-      internalID: -200610659
+      spriteID: 3b521cb487fb3d74b8c47febba78afbd
+      internalID: -883774813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Substance_graph_output_3
+      name: Substance_graph_output_1_3
       rect:
         serializedVersion: 2
         x: 0
@@ -187,113 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c003778c15ad094d87c5e25ca19faa6
-      internalID: 1217657800
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Substance_graph_output_4
-      rect:
-        serializedVersion: 2
-        x: 682
-        y: 683.3333
-        width: 682.6667
-        height: 682.6667
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ae3ab48ef6d5a27418c96a1a8fb95a6d
-      internalID: 1595874288
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Substance_graph_output_5
-      rect:
-        serializedVersion: 2
-        x: 1364
-        y: 683.3333
-        width: 682.6667
-        height: 682.6667
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 38dd05a2ac270bd4b85009ce43eab6f1
-      internalID: -563649234
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Substance_graph_output_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1.333313
-        width: 682.6667
-        height: 682.6667
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 75c82cba8cca7944eb696d67c4cae8d2
-      internalID: 184490089
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Substance_graph_output_7
-      rect:
-        serializedVersion: 2
-        x: 682
-        y: 1.333313
-        width: 682.6667
-        height: 682.6667
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 075447eed83abf34b846f6a5122fd5a5
-      internalID: 1008128203
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Substance_graph_output_8
-      rect:
-        serializedVersion: 2
-        x: 1364
-        y: 1.333313
-        width: 682.6667
-        height: 682.6667
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bfa1de1fc56690f4ebb011a69e8d54b6
-      internalID: -1349416564
+      spriteID: ff24a1d0979aec64ea87b5f7a2caf07c
+      internalID: -1442015466
       vertices: []
       indices: 
       edges: []
@@ -309,15 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Substance_graph_output_0: 2047780864
-      Substance_graph_output_1: 951501228
-      Substance_graph_output_2: -200610659
-      Substance_graph_output_3: 1217657800
-      Substance_graph_output_4: 1595874288
-      Substance_graph_output_5: -563649234
-      Substance_graph_output_6: 184490089
-      Substance_graph_output_7: 1008128203
-      Substance_graph_output_8: -1349416564
+      Substance_graph_output_1_0: -85962049
+      Substance_graph_output_1_1: 2043022885
+      Substance_graph_output_1_2: -883774813
+      Substance_graph_output_1_3: -1442015466
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

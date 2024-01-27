@@ -475,7 +475,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 106
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -520,33 +520,15 @@ GameObject:
   - component: {fileID: 1775171752}
   - component: {fileID: 1775171751}
   - component: {fileID: 1775171755}
-  - component: {fileID: 1775171750}
-  - component: {fileID: 1775171754}
+  - component: {fileID: 1775171756}
+  - component: {fileID: 1775171757}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: cat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1775171750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775171749}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcce07f3f1b0cf345975fdc7eb1251c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  acceleration: 5
-  maxSpeed: 5
-  deceleration: 5
-  bounceForce: 100
-  teleportPoints: []
-  teleportRadius: 2
 --- !u!50 &1775171751
 Rigidbody2D:
   serializedVersion: 4
@@ -615,8 +597,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
-    type: 3}
+  m_Sprite: {fileID: 2047780864, guid: 91f9fbede25a4dd428f9065caedb9911, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -643,8 +624,52 @@ Transform:
   - {fileID: 365617200}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1775171754
-CircleCollider2D:
+--- !u!114 &1775171755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775171749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d2da90ae945f14281c6c8e1286b15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 5
+  maxSpeed: 10
+  deceleration: 5
+  shootingSpeed: 10
+  shootDeceleration: 10
+  shootDistance: 10
+  shootCD: 5
+  rotationSpeed: 180
+  Arrow: {fileID: 365617199}
+  shootPhyMaterial: {fileID: 6200000, guid: 23b5f0eb8bb8e1846ae7900bc33ff13d, type: 2}
+  originPhyMaterial: {fileID: 6200000, guid: b2d07e7feaf367a449cc99b07eefebf6, type: 2}
+--- !u!95 &1775171756
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775171749}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8227ac8b739920a499c18d53d9a902a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!70 &1775171757
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -675,32 +700,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &1775171755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775171749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d2da90ae945f14281c6c8e1286b15c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  acceleration: 5
-  maxSpeed: 10
-  deceleration: 5
-  shootingSpeed: 10
-  shootDeceleration: 10
-  shootDistance: 10
-  bounciness: 1
-  rotationSpeed: 90
-  Arrow: {fileID: 365617199}
-  shootPhyMaterial: {fileID: 6200000, guid: 23b5f0eb8bb8e1846ae7900bc33ff13d, type: 2}
-  originPhyMaterial: {fileID: 6200000, guid: b2d07e7feaf367a449cc99b07eefebf6, type: 2}
+  m_Offset: {x: -0.0013216301, y: -0.13584037}
+  m_Size: {x: 1.2161633, y: 0.5729098}
+  m_Direction: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

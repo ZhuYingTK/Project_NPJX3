@@ -17,8 +17,8 @@ public class CatController : MonoBehaviour
     public float shootDeceleration = 10f;
     [SerializeField, Label("弹射距离")] 
     public float shootDistance = 10;
-    [SerializeField, Label("弹射弹性")]
-    public float bounciness = 1;
+    [SerializeField, Label("弹射冷却")] 
+    public float shootCD = 5;
     [SerializeField,Label("箭头旋转速度")]
     public float rotationSpeed = 90;//旋转速度
     [SerializeField,Label("箭头指示物")]
@@ -26,6 +26,7 @@ public class CatController : MonoBehaviour
     
     public PhysicsMaterial2D shootPhyMaterial;
     public PhysicsMaterial2D originPhyMaterial;
+    private SpriteRenderer _renderer;
 
     private Rigidbody2D rb;
     private Vector2 inputVector;
@@ -35,12 +36,18 @@ public class CatController : MonoBehaviour
     private float currentDistance;  //当前距离
 
     private Vector3 _lastPosition;  //上次的位置
+    private Animator _animator;
+    private float shootCDTimmer;    //发射简易计时器
+    private bool canShoot;      //可以发射
 
     private void Start()
     {
         isPreShooting = false;
         rb = GetComponent<Rigidbody2D>();
         rb.sharedMaterial = originPhyMaterial;
+        _renderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
+        canShoot = true;
     }
 
     private void Update()
@@ -53,10 +60,15 @@ public class CatController : MonoBehaviour
             float inputY1 = Input.GetKey(KeyCode.S) ? -1 : 0;
             float inputY2 = (Input.GetKey(KeyCode.W) ? 1 : 0);
             inputVector = new Vector2(inputX1 + inputX2, inputY1 + inputY2).normalized;
-            if (Input.GetKeyUp(KeyCode.J))
+            if (Input.GetKeyUp(KeyCode.J) && canShoot)
             {
                 ChangeToPreShooting();
             }
+
+            if (inputX1 + inputX2 < 0)
+                _renderer.flipX = true;
+            if(inputX1 + inputX2 > 0) 
+                _renderer.flipX = false;
         }
         //预备弹射状态
         else if(isPreShooting)
@@ -83,12 +95,29 @@ public class CatController : MonoBehaviour
         {
             //增加当前距离
             currentDistance += Vector2.Distance(transform.position, _lastPosition);
+            _renderer.flipX = rb.velocity.x < 0;
             if (currentDistance > shootDistance)
             {
                 EndShooting();
             }
         }
+        //更新坐标
         _lastPosition = transform.position;
+        
+        //计时器变化
+        if (!canShoot)
+        {
+            if (shootCDTimmer <= 0)
+            {
+                canShoot = true;
+            }
+            else if(!canShoot)
+            {
+                shootCDTimmer -= Time.deltaTime;
+            }
+        }
+        
+        Debug.Log("可发射状态" + canShoot + "剩余CD" + shootCDTimmer);
     }
 
     //切换到弹射状态
@@ -105,9 +134,12 @@ public class CatController : MonoBehaviour
         isPreShooting = false;
         isShooting = true;
         Arrow.SetActive(false);
+        canShoot = false;
+        shootCDTimmer = shootCD;
         //更改速度
         rb.velocity = shootingSpeed * shootVector;
         rb.sharedMaterial = shootPhyMaterial;
+        _animator.SetBool("isShoot",true);
     }
 
     private void EndShooting()
@@ -115,6 +147,7 @@ public class CatController : MonoBehaviour
         currentDistance = 0;
         isShooting = false;
         rb.sharedMaterial = originPhyMaterial;
+        _animator.SetBool("isShoot",false);
     }
 
     private void FixedUpdate()
@@ -145,6 +178,11 @@ public class CatController : MonoBehaviour
                     rb.velocity = Vector2.zero;
                 }
             }
+        }
+
+        if (!isShooting)
+        {
+            _animator.SetBool("isIdle",rb.velocity.magnitude < 0.2f);
         }
     }
     
