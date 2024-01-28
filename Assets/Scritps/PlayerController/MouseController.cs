@@ -37,6 +37,8 @@ public class MouseController : MonoBehaviour
     private bool isSlip = false;
     private float SlipTimmer = 0f;
 
+    private bool isEatingChease = false;
+
 
     private void Start()
     {
@@ -46,7 +48,10 @@ public class MouseController : MonoBehaviour
         Instance = this;
 
         EventCenter.AddSingleEventListener(EventKey.HoleCreateDown, (List<Transform> holeTrans) => { teleportPoints = holeTrans; });
-        EventCenter.AddEventListener(EventKey.GameStart, () => { moveable = true; });
+        EventCenter.AddEventListener(EventKey.GameStart, () => { moveable = true;
+            isSlip = false;
+            isEatingChease = false;
+        });
         EventCenter.AddEventListener(EventKey.GameEnd, () => { moveable = false; });
 
         //Debug.Log("事件注册");
@@ -137,7 +142,7 @@ public class MouseController : MonoBehaviour
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.Keypad0))
+                if (Input.GetKeyDown(KeyCode.Keypad0)&&!isEatingChease)
                 {
                     //Teleport();
                     
@@ -184,12 +189,14 @@ public class MouseController : MonoBehaviour
     private void Start_cheese()
     {
         moveable = false;
+        isEatingChease = true;
         EventCenter.TriggerEvent(EventKey.MouseStartSteal);
     }
 
     private void Stop_cheese()
     {
         moveable = true;
+        isEatingChease = false;
         EventCenter.TriggerEvent(EventKey.MouseEndSteal);
     }
 
@@ -215,7 +222,7 @@ public class MouseController : MonoBehaviour
         }
 
         // 如果没有输入，逐渐减速
-        if (!isInput && rb.velocity.magnitude > 0)
+        if (!isInput && rb.velocity.magnitude > 0 && !isSlip)
         {
             rb.velocity -= rb.velocity.normalized * deceleration * Time.fixedDeltaTime;
             if (rb.velocity.magnitude < 0.1f) // 速度很低时直接停止
