@@ -22,7 +22,7 @@ public class Water : MonoBehaviour
             MouseController controller;
             if (other.TryGetComponent(out controller))
             {
-                //controller.OnSlip(slipTime);
+                controller.OnSlip(slipTime);
             }
         }
     }

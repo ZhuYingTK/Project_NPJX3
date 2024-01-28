@@ -34,7 +34,8 @@ public class MouseController : MonoBehaviour
 
     private float holeCD = 0f;
 
-
+    private bool isSlip = false;
+    private float SlipTimmer = 0f;
 
 
     private void Start()
@@ -155,6 +156,21 @@ public class MouseController : MonoBehaviour
         {
             Stop_cheese();
         }
+
+
+        if (isSlip)
+        {
+            if (SlipTimmer <= 0)
+            {
+                isSlip = false;
+                moveable = true;
+            }
+            else
+            {
+                SlipTimmer -= Time.deltaTime;
+            }
+        }
+
 
     }
 
@@ -345,18 +361,21 @@ public class MouseController : MonoBehaviour
 
         animator.SetBool("inChoice", false);
 
-        teleportPoints[currentTeleportPointIndex].gameObject.GetComponent<HoleBehavior>().SetToCommon();
+       teleportPoints[currentTeleportPointIndex].gameObject.GetComponent<HoleBehavior>().SetToCommon();
 
         transform.position = teleportPoints[currentTeleportPointIndex].position;
 
         spriteRenderer.enabled = true;
     }
 
-
-
-
-
-
+    public void OnSlip(float slipTime)
+    {
+        isSlip = true;
+        SlipTimmer = slipTime;
+        moveable = false;
+        rb.velocity = rb.velocity.normalized * maxSpeed;
+        Debug.Log("sliping!!!");
+    }
 
 
 }
