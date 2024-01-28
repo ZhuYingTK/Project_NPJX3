@@ -119,4 +119,5 @@ public class EventKey
 
     public static readonly string CatCatchChange = "CATCATCHCHANGE";//猫的捕捉CD
     public static readonly string CatShootChange = "CATSHOOTCHANGE";//猫的发射CD
+    public static readonly string MouseTeleprotCD = "MOUSETELEPORTCD";//属鼠的CD
 }

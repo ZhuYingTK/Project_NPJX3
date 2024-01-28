@@ -129,9 +129,11 @@ public class MouseController : MonoBehaviour
         if (holeCD > 0)
         {
             holeCD -= Time.deltaTime;
+            EventCenter.TriggerEvent(EventKey.MouseTeleprotCD,holeCD/5);
         }
         else
         {
+            EventCenter.TriggerEvent(EventKey.MouseTeleprotCD,0);
             if (onChoice)
             {
                 if (Input.GetKeyDown(KeyCode.Keypad0))
@@ -372,6 +374,8 @@ public class MouseController : MonoBehaviour
         timeLeft = 0;
 
         holeCD = 5f;
+        
+        EventCenter.TriggerEvent(EventKey.MouseTeleprotCD,1);
 
         animator.SetBool("inChoice", false);
 
