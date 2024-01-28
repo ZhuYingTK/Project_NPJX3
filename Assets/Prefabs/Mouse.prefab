@@ -305,7 +305,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   cheesePoints: []
-  teleportRadius: 2
+  teleportRadius: 1
   cheeseEatingRate: 1
 --- !u!58 &5963120184498896704
 CircleCollider2D:

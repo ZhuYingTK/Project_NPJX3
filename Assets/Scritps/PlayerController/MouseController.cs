@@ -140,7 +140,14 @@ public class MouseController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Keypad0))
                 {
                     //Teleport();
-                    StartCoroutine(ChangeOptionEverySecond());
+                    
+                    if (FindClosestTeleportPoint(transform) != null)
+                    {
+                        currentTeleportPointIndex = teleportPoints.IndexOf(FindClosestTeleportPoint(transform));
+                        StartCoroutine(ChangeOptionEverySecond());
+                    }
+
+                    
                     //spriteRenderer.enabled = false;
                 }
             }
